@@ -2,27 +2,20 @@ package bot
 
 import (
 	"fmt"
-	"gohunterbot/internal/collector"
+	"gohunterbot/internal/logger"
+	"gohunterbot/internal/webdriver"
 	"time"
 
-	"github.com/gocolly/colly/v2"
+	"github.com/tebeka/selenium"
+	"go.uber.org/zap"
 )
 
 type BotOption func(bot *Bot) error
 
 type Bot struct {
 	ResourceUrl string
-	Collector   *colly.Collector
+	BrowserCaps selenium.Capabilities
 	Refreshing  time.Duration
-}
-
-func defaultBot() *Bot {
-	c, _ := collector.NewCollector()
-	return &Bot{
-		ResourceUrl: "",
-		Collector:   c,
-		Refreshing:  5 * time.Minute,
-	}
 }
 
 func NewBot(options ...BotOption) (*Bot, error) {
@@ -36,5 +29,31 @@ func NewBot(options ...BotOption) (*Bot, error) {
 }
 
 func (b *Bot) Start() {
-	// TODO - Updating channel for bot
+	webdriver.StartSeleniumService()
+	ticker := time.NewTicker(b.Refreshing)
+	quit := make(chan struct{})
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				logger.Sugar.Debug("bot: register new tick")
+				err := PressUpInSearchBtn(b)
+				if err != nil {
+					logger.Sugar.Error("bot", zap.Error(err))
+				}
+			case <-quit:
+				ticker.Stop()
+				return
+			}
+		}
+	}()
+}
+
+func defaultBot() *Bot {
+	caps := selenium.Capabilities{"browserName": "chrome"}
+	return &Bot{
+		ResourceUrl: "",
+		BrowserCaps: caps,
+		Refreshing:  4 * time.Hour,
+	}
 }
