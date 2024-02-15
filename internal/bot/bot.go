@@ -3,10 +3,10 @@ package bot
 import (
 	"fmt"
 	"gohunterbot/internal/logger"
-	"gohunterbot/internal/webdriver"
 	"time"
 
 	"github.com/tebeka/selenium"
+	"github.com/tebeka/selenium/chrome"
 	"go.uber.org/zap"
 )
 
@@ -29,7 +29,6 @@ func NewBot(options ...BotOption) (*Bot, error) {
 }
 
 func (b *Bot) Start() {
-	webdriver.StartSeleniumService()
 	ticker := time.NewTicker(b.Refreshing)
 	quit := make(chan struct{})
 	go func() {
@@ -51,6 +50,13 @@ func (b *Bot) Start() {
 
 func defaultBot() *Bot {
 	caps := selenium.Capabilities{"browserName": "chrome"}
+	chromeCaps := chrome.Capabilities{
+		Args: []string{
+			"--headless",
+		},
+		W3C: true,
+	}
+	caps.AddChrome(chromeCaps)
 	return &Bot{
 		ResourceUrl: "",
 		BrowserCaps: caps,
