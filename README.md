@@ -15,13 +15,13 @@ type Bot struct {
 ```
 - **ResourceUrl** - link to page that bot will visiting;
 - **BorwserCaps** - it's external library struct from [tebeka/selenium](https://pkg.go.dev/github.com/tebeka/selenium). Capabilities configures both the WebDriver process and the target browsers, with standard and browser-specific options;
-- **Refreshing** - repeating time interval after which the bot will perform its target actions using the **Collector**.
+- **Refreshing** - repeating time interval after which the bot will perform its target actions using the [selenium webdriver](https://www.selenium.dev/documentation/webdriver/).
 
 ## How to use
 
 Below are described ways to launch this bot locally with the necessary configuration.
 
-1. Clone this repo by typing:
+1. Clone this repo by typing in terminal:
 
 	```bash
 	git clone https://github.com/IceTweak/gohunterbot.git
@@ -44,6 +44,6 @@ Below are described ways to launch this bot locally with the necessary configura
 	REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 	hh-bot       latest    30cab23d6fa8   2 minutes ago   990MB
 	``` 
-4. Run image using docker compose:
+4. Run image using `docker compose`:
 	
 	`docker compose up` (run command in the same folder as compose.yaml file).
