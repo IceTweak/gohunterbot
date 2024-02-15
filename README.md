@@ -44,8 +44,6 @@ Below are described ways to launch this bot locally with the necessary configura
 	REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
 	hh-bot       latest    30cab23d6fa8   2 minutes ago   990MB
 	``` 
-4. Run image by `docker run` or use docker compose:
-
-	- `docker run hh-bot`
-
-	- `docker compose up` (run command in same folder as compose.yaml file).
+4. Run image using docker compose:
+	
+	`docker compose up` (run command in the same folder as compose.yaml file).

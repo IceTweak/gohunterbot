@@ -1,10 +1,19 @@
 version: '3.8'
 
 services:
-  app:
-    container_name: headhunter-bot
+  selenium:
+    image: selenium/standalone-chrome:latest
+    ports: 
+      - 4001:4001
+  bot:
+    container_name: gohunterbot
     image: hh-bot
     ports: 
-      - 127.0.0.1:4444:4444
+      - 4002:4002
+    environment:
+      - SELENIUM_DRIVER_PORT=4001
+      - RESOURCE_URL="https://hh.ru/applicant/resumes?hhtmFrom=main"
     env_file:
       - .env
+    depends_on:
+      - selenium

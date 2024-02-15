@@ -6,7 +6,6 @@ import (
 	"gohunterbot/internal/logger"
 	"os"
 
-	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 	"google.golang.org/appengine/log"
 )
@@ -16,10 +15,6 @@ func main() {
 	err := logger.InitSugar()
 	if err != nil {
 		log.Errorf(ctx, "Failed to setup logger: %s", err.Error())
-	}
-	err = godotenv.Load()
-	if err != nil {
-		logger.Sugar.Error("dotenv", zap.Error(err))
 	}
 	logger.Sugar.Info("Starting HeadHunter Bot...")
 
