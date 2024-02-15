@@ -3,7 +3,7 @@ package bot
 import (
 	"time"
 
-	"github.com/gocolly/colly/v2"
+	"github.com/tebeka/selenium"
 )
 
 func WithResUrl(url string) BotOption {
@@ -20,9 +20,9 @@ func WithRefreshingInterval(interval time.Duration) BotOption {
 	}
 }
 
-func WithCustomCollector(collector *colly.Collector) BotOption {
+func WithBrowserCaps(caps selenium.Capabilities) BotOption {
 	return func(bot *Bot) error {
-		bot.Collector = collector
+		bot.BrowserCaps = caps
 		return nil
 	}
 }

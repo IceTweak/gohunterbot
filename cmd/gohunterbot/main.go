@@ -11,12 +11,6 @@ import (
 	"google.golang.org/appengine/log"
 )
 
-//? Implementation Details
-//* Bot should visit HeadHunter web-page every Refreshing interval;
-
-//* Bot should have a gocolly Collector for parsing this page
-//* and make some activities (press button, fill form);
-
 func main() {
 	ctx := context.Background()
 	err := logger.InitSugar()
