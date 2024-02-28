@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.21
+FROM golang:alpine AS builder
 
 # Set destination for COPY
-WORKDIR /app
+WORKDIR /build
 
 # Download Go modules
 COPY go.mod go.sum ./
@@ -15,6 +15,13 @@ COPY cmd/ ./cmd/
 
 # Build project
 RUN go build -C ./cmd/gohunterbot/ -o ../../gohunterbot
+
+FROM alpine
+
+WORKDIR /build
+
+# Copy binary
+COPY --from=builder /build/gohunterbot /build/gohunterbot
 
 # Bind to a TCP port
 EXPOSE 4444
