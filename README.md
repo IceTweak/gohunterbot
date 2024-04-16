@@ -41,8 +41,8 @@ Below are described ways to launch this bot locally with the necessary configura
 	should print out same thing:
 
 	```bash
-	REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
-	hh-bot       latest    30cab23d6fa8   2 minutes ago   990MB
+	REPOSITORY                   TAG       IMAGE ID       CREATED         SIZE
+	hh-bot                       latest    5ddbe4b65cc1   5 seconds ago   20.4MB
 	``` 
 4. Run image using `docker compose`:
 	
